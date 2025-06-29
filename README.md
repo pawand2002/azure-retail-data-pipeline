@@ -44,7 +44,7 @@ graph TD
         B[Azure Data Factory]
     end
 
-    subgraph Data Storage (Azure Data Lake Storage Gen2)
+    subgraph "Data Storage (Azure Data Lake Storage Gen2)"
         C(Bronze Zone<br><i>(Raw Data)</i>)
         D(Silver Zone<br><i>(Cleaned Data)</i>)
         E(Gold Zone<br><i>(Aggregated Data)</i>)
