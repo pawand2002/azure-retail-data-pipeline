@@ -35,11 +35,10 @@ This project demonstrates a complete Data Engineering workflow using Azure tools
 
 ## 🏗️ Architecture Diagram
 
- ```mermaid
 graph TD
     A[User / External System] -- Uploads sales.csv --> B(sales.csv File);
 
-    subgraph Data Ingestion & Processing (Azure Data Factory Orchestration)
+    subgraph Data Ingestion & Processing Azure Data Factory Orchestration
         direction LR
         B -- "1. Raw Ingestion (ADF Pipeline)" --> C(ADF Bronze Ingestion);
         C -- "Stores as-is" --> D[ADLS Gen2<br><b>Bronze Layer</b><br><i>(sales/)</i>];
