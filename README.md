@@ -133,7 +133,7 @@ graph TD
     class powerbi_consumer consumerNode;
 ```
 
-##  Project Structure
+## 📁 Project Structure
 
 ├── adf-pipelines/                # Azure Data Factory pipeline definitions (JSON)
 │   ├── bronze_ingestion.json
@@ -146,3 +146,4 @@ graph TD
 ├── notebooks/                    # Optional: Jupyter notebooks for data exploration/validation
 │   └── data_validation.ipynb
 └── README.md                     # This README file
+---
