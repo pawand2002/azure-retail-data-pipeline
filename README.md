@@ -34,7 +34,7 @@ This project demonstrates a complete Data Engineering workflow using Azure tools
 ---
 
 ## 🏗️ Architecture Diagram
-
+```mermaid
 graph TD
     A[User / External System] -- Uploads sales.csv --> B(sales.csv File);
 
