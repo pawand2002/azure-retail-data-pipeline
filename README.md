@@ -3,6 +3,16 @@
 This project demonstrates a complete Data Engineering workflow using Azure tools. It simulates ingesting sales data from a source CSV, transforming it through Bronze → Silver → Gold layers, and preparing it for reporting with Power BI.
 
 ---
+## ✨ Features
+
+* **Automated Data Ingestion:** Securely ingests raw sales data into a data lake.
+* **Layered Data Architecture:** Implements a Medallion Architecture (Bronze, Silver, Gold) for data quality and reusability.
+* **Data Transformation & Cleansing:** Handles data type conversions, null values, and derives new metrics.
+* **Data Aggregation:** Prepares summarized data suitable for analytical reporting.
+* **Cloud-Native & Scalable:** Built entirely on Azure, ensuring scalability and cost-effectiveness.
+* **Version Controlled:** All pipeline definitions and code are managed via Git.
+
+---
 
 ## 🧰 Tech Stack
 
@@ -32,7 +42,32 @@ This project demonstrates a complete Data Engineering workflow using Azure tools
 - Stored in `gold/sales_summary/`
 
 ---
+### 🏅 Medallion Architecture Detail
 
+This diagram illustrates the flow of data through the Bronze, Silver, and Gold layers within Azure Data Lake Storage Gen2, representing the progressive refinement of data.
+
+```mermaid
+graph TD
+    subgraph "Azure Data Lake Storage Gen2"
+        direction LR
+        bronze_zone["**Bronze Zone**<br>_Raw, Immutable Data_<br>(e.g., `sales.csv` as-is)"]
+        silver_zone["**Silver Zone**<br>_Cleaned, Conformed Data_<br>(Parquet Format)"]
+        gold_zone["**Gold Zone**<br>_Aggregated, Business-Ready Data_<br>(Parquet Format)"]
+    end
+
+    bronze_zone -- "1. ETL (ADF Pipeline)<br>Cleansing & Transformation" --> silver_zone;
+    silver_zone -- "2. ETL (ADF Pipeline)<br>Aggregation & Modeling" --> gold_zone;
+
+    gold_zone -- "Consumed by BI & Analytics Tools" --> powerbi_consumer[Power BI / Analytics];
+
+    %% --- Styling for Medallion Layers ---
+    classDef medallionLayer fill:#FFFACD,stroke:#333,stroke-width:2px;
+    classDef consumerNode fill:#DA70D6,stroke:#333,stroke-width:2px;
+
+    class bronze_zone,silver_zone,gold_zone medallionLayer;
+    class powerbi_consumer consumerNode;
+```
+---
 ## 🏗️ Architecture Diagram
 ```mermaid
 graph TD
