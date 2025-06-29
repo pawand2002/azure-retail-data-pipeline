@@ -35,54 +35,39 @@ This project demonstrates a complete Data Engineering workflow using Azure tools
 
 ## 🏗️ Architecture Diagram
 
-                ┌────────────┐
-                │  Raw File  │   (e.g., sales.csv upload)
-                └────┬───────┘
-                     │
-             ┌───────▼────────────────┐
-             │    ADF Ingestion       │
-             │  (Trigger-based)       │
-             └───────┬────────────────┘
-                     │
-            ▓▓▓▓ BRONZE LAYER ▓▓▓▓
-         (Raw zone - as-is ingest via ADF)
+       ```mermaid
+graph TD
+    A[User / External System] -- Uploads sales.csv --> B(sales.csv File);
 
-                     ▼
-        Stored in → ADLS Gen2 /bronze/sales/
+    subgraph Data Ingestion & Processing (Azure Data Factory Orchestration)
+        direction LR
+        B -- "1. Raw Ingestion (ADF Pipeline)" --> C(ADF Bronze Ingestion);
+        C -- "Stores as-is" --> D[ADLS Gen2<br><b>Bronze Layer</b><br><i>(sales/)</i>];
 
-                     │
-             ┌───────▼────────────────────┐
-             │   ADF Data Flow Transform  │
-             │ - Null handling            │
-             │ - Type casting             │
-             │ - New columns (e.g., Profit)|
-             └───────┬────────────────────┘
-                     │
-            ▓▓▓▓ SILVER LAYER ▓▓▓▓
-      (Cleansed zone – conforming format)
+        D -- "2. Clean & Transform (ADF Pipeline)" --> E(ADF Silver Transformation);
+        E -- "Stores as Parquet" --> F[ADLS Gen2<br><b>Silver Layer</b><br><i>(sales_cleaned/)</i>];
 
-                     ▼
-       Stored in → ADLS Gen2 /silver/sales_cleaned/
+        F -- "3. Aggregate Data (ADF Pipeline)" --> G(ADF Gold Aggregation);
+        G -- "Stores as Parquet" --> H[ADLS Gen2<br><b>Gold Layer</b><br><i>(sales_summary/)</i>];
+    end
 
-                     │
-             ┌───────▼────────────────────┐
-             │     ADF Aggregation Flow   │
-             │ - Region & Date grouping   │
-             │ - Sales metrics            │
-             └───────┬────────────────────┘
-                     │
-            ▓▓▓▓ GOLD LAYER ▓▓▓▓
-    (Business zone – analytical data marts)
+    H -- "4. Consumption" --> I[Power BI<br><i>(Dashboard Layer)</i>];
 
-                     ▼
-       Stored in → ADLS Gen2 /gold/sales_summary/
+    %% --- Styling for Professional Look ---
+    classDef mainNode fill:#f9f,stroke:#333,stroke-width:2px;
+    classDef component fill:#add8e6,stroke:#333,stroke-width:2px;
+    classDef storageLayer fill:#fffacd,stroke:#333,stroke-width:2px;
+    classDef outputLayer fill:#DA70D6,stroke:#333,stroke-width:2px;
 
-                     │
-             ┌───────▼────────────────────┐
-             │        Power BI            │
-             │ - Dashboards (upcoming)    │
-             │ - Row-Level Security (RLS)│
-             └────────────────────────────┘
+    class A mainNode;
+    class B mainNode;
+    class C component;
+    class D storageLayer;
+    class E component;
+    class F storageLayer;
+    class G component;
+    class H storageLayer;
+    class I outputLayer;   
 
 ---
 
