@@ -35,7 +35,7 @@ This project demonstrates a complete Data Engineering workflow using Azure tools
 
 ## 🏗️ Architecture Diagram
 
-       ```mermaid
+ ```mermaid
 graph TD
     A[User / External System] -- Uploads sales.csv --> B(sales.csv File);
 
@@ -67,8 +67,7 @@ graph TD
     class F storageLayer;
     class G component;
     class H storageLayer;
-    class I outputLayer;   
-
+    class I outputLayer;
 ---
 
 ## 🔁 Pipeline Details
