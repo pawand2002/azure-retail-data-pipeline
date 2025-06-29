@@ -35,7 +35,54 @@ This project demonstrates a complete Data Engineering workflow using Azure tools
 
 ## 🏗️ Architecture Diagram
 
-*(Include image `architecture.png` if you created one)*
+                ┌────────────┐
+                │  Raw File  │   (e.g., sales.csv upload)
+                └────┬───────┘
+                     │
+             ┌───────▼────────────────┐
+             │    ADF Ingestion       │
+             │  (Trigger-based)       │
+             └───────┬────────────────┘
+                     │
+            ▓▓▓▓ BRONZE LAYER ▓▓▓▓
+         (Raw zone - as-is ingest via ADF)
+
+                     ▼
+        Stored in → ADLS Gen2 /bronze/sales/
+
+                     │
+             ┌───────▼────────────────────┐
+             │   ADF Data Flow Transform  │
+             │ - Null handling            │
+             │ - Type casting             │
+             │ - New columns (e.g., Profit)|
+             └───────┬────────────────────┘
+                     │
+            ▓▓▓▓ SILVER LAYER ▓▓▓▓
+      (Cleansed zone – conforming format)
+
+                     ▼
+       Stored in → ADLS Gen2 /silver/sales_cleaned/
+
+                     │
+             ┌───────▼────────────────────┐
+             │     ADF Aggregation Flow   │
+             │ - Region & Date grouping   │
+             │ - Sales metrics            │
+             └───────┬────────────────────┘
+                     │
+            ▓▓▓▓ GOLD LAYER ▓▓▓▓
+    (Business zone – analytical data marts)
+
+                     ▼
+       Stored in → ADLS Gen2 /gold/sales_summary/
+
+                     │
+             ┌───────▼────────────────────┐
+             │        Power BI            │
+             │ - Dashboards (upcoming)    │
+             │ - Row-Level Security (RLS)│
+             └────────────────────────────┘
 
 ---
 
