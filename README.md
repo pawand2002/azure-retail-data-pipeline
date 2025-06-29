@@ -15,17 +15,6 @@ This project implements a robust and scalable **End-to-End ETL (Extract, Transfo
 * **Data Aggregation:** Prepares summarized data suitable for analytical reporting.
 * **Cloud-Native & Scalable:** Built entirely on Azure, ensuring scalability and cost-effectiveness.
 * **Version Controlled:** All pipeline definitions and code are managed via Git.
-
----
-🧰 Tech Stack
-| Layer | Tools / Technologies | 
-| Ingestion & Orchestration | Azure Data Factory (Pipelines, Data Flows) | 
-| Storage Zones | Azure Data Lake Storage Gen2 (Bronze → Silver → Gold) | 
-| File Format | Parquet (optimized, columnar storage) | 
-| Analytics & BI | Power BI (executive dashboards, RLS, DAX) – planned | 
-| Source Control | Git (pipeline versioning) | 
-| Optional Tools | Python (for offline inspection, not used in pipeline) | 
-
 ---
 ## 🏛️ High-Level Architecture
 
