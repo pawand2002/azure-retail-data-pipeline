@@ -36,37 +36,48 @@ This project demonstrates a complete Data Engineering workflow using Azure tools
 ## 🏗️ Architecture Diagram
 ```mermaid
 graph TD
-    A[User / External System] -- "Uploads sales.csv" --> B("sales.csv File");
-
-    subgraph Data Ingestion & Processing Azure Data Factory Orchestration
-        direction LR
-        B -- "1. Raw Ingestion (ADF Pipeline)" --> C(ADF Bronze Ingestion);
-        C -- "Stores as-is" --> D["ADLS Gen2<br><b>Bronze Layer</b><br><i>(sales/)</i>"];
-
-        D -- "2. Clean & Transform (ADF Pipeline)" --> E(ADF Silver Transformation);
-        E -- "Stores as Parquet" --> F["ADLS Gen2<br><b>Silver Layer</b><br><i>(sales_cleaned/)</i>"];
-
-        F -- "3. Aggregate Data (ADF Pipeline)" --> G(ADF Gold Aggregation);
-        G -- "Stores as Parquet" --> H["ADLS Gen2<br><b>Gold Layer</b><br><i>(sales_summary/)</i>"];
+    subgraph Data Source
+        A[Retail Sales Data Source]
     end
 
-    H -- "4. Consumption" --> I["Power BI<br><i>(Dashboard Layer)</i>"];
+    subgraph Orchestration & Processing
+        B[Azure Data Factory]
+    end
+
+    subgraph Data Storage (Azure Data Lake Storage Gen2)
+        C(Bronze Zone<br><i>(Raw Data)</i>)
+        D(Silver Zone<br><i>(Cleaned Data)</i>)
+        E(Gold Zone<br><i>(Aggregated Data)</i>)
+    end
+
+    subgraph Business Intelligence
+        F[Power BI]
+    end
+
+    subgraph Development & Version Control
+        G[Git Repository]
+    end
+
+    A -- "Ingests Data" --> B;
+    B -- "Orchestrates Storage into" --> C;
+    C -- "Transforms Data via ADF" --> D;
+    D -- "Aggregates Data via ADF" --> E;
+    E -- "Consumes for Reporting" --> F;
+
+    G -- "Manages ADF & Pipeline Code" --> B;
 
     %% --- Styling for Professional Look ---
-    classDef mainNode fill:#f9f,stroke:#333,stroke-width:2px;
-    classDef component fill:#add8e6,stroke:#333,stroke-width:2px;
-    classDef storageLayer fill:#fffacd,stroke:#333,stroke-width:2px;
-    classDef outputLayer fill:#DA70D6,stroke:#333,stroke-width:2px;
+    classDef source fill:#DDFFAA,stroke:#333,stroke-width:2px;
+    classDef orchestrator fill:#ADD8E6,stroke:#333,stroke-width:2px;
+    classDef storage fill:#FFFACD,stroke:#333,stroke-width:2px;
+    classDef bi fill:#DA70D6,stroke:#333,stroke-width:2px;
+    classDef devops fill:#C0C0C0,stroke:#333,stroke-width:2px;
 
-    class A mainNode;
-    class B mainNode;
-    class C component;
-    class D storageLayer;
-    class E component;
-    class F storageLayer;
-    class G component;
-    class H storageLayer;
-    class I outputLayer;
+    class A source;
+    class B orchestrator;
+    class C,D,E storage;
+    class F bi;
+    class G devops;
 ```
 ---
 
