@@ -36,18 +36,18 @@ This project demonstrates a complete Data Engineering workflow using Azure tools
 ## 🏗️ Architecture Diagram
 ```mermaid
 graph TD
-    A[User / External System] -- Uploads sales.csv --> B(sales.csv File);
+    A[User / External System] -- "Uploads sales.csv" --> B("sales.csv File");
 
     subgraph Data Ingestion & Processing Azure Data Factory Orchestration
         direction LR
         B -- "1. Raw Ingestion (ADF Pipeline)" --> C(ADF Bronze Ingestion);
-        C -- "Stores as-is" --> D[ADLS Gen2<br><b>Bronze Layer</b><br><i>(sales/)</i>];
+        C -- "Stores as-is" --> D["ADLS Gen2<br><b>Bronze Layer</b><br><i>(sales/)</i>"];
 
         D -- "2. Clean & Transform (ADF Pipeline)" --> E(ADF Silver Transformation);
-        E -- "Stores as Parquet" --> F[ADLS Gen2<br><b>Silver Layer</b><br><i>(sales_cleaned/)</i>];
+        E -- "Stores as Parquet" --> F["ADLS Gen2<br><b>Silver Layer</b><br><i>(sales_cleaned/)</i>"];
 
         F -- "3. Aggregate Data (ADF Pipeline)" --> G(ADF Gold Aggregation);
-        G -- "Stores as Parquet" --> H[ADLS Gen2<br><b>Gold Layer</b><br><i>(sales_summary/)</i>];
+        G -- "Stores as Parquet" --> H["ADLS Gen2<br><b>Gold Layer</b><br><i>(sales_summary/)</i>"];
     end
 
     H -- "4. Consumption" --> I[Power BI<br><i>(Dashboard Layer)</i>];
