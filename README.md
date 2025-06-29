@@ -136,9 +136,9 @@ graph TD
 ## 📁 Project Structure
 
 ├── adf-pipelines/                # Azure Data Factory pipeline definitions (JSON)
-│   ├── bronze_ingestion.json
-│   ├── silver_transform.json
-│   └── gold_aggregation.json
+    ├── bronze_ingestion.json
+    ├── silver_transform.json
+    |── gold_aggregation.json
 ├── data/                         # Sample or test data (if applicable)
 │   └── sales.csv                 # Raw sales data
 ├── powerbi-reports/              # Power BI Desktop files (.pbix)
