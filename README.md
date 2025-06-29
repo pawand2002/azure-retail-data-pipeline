@@ -50,7 +50,7 @@ graph TD
         G -- "Stores as Parquet" --> H["ADLS Gen2<br><b>Gold Layer</b><br><i>(sales_summary/)</i>"];
     end
 
-    H -- "4. Consumption" --> I[Power BI<br><i>(Dashboard Layer)</i>];
+    H -- "4. Consumption" --> I["Power BI<br><i>(Dashboard Layer)</i>"];
 
     %% --- Styling for Professional Look ---
     classDef mainNode fill:#f9f,stroke:#333,stroke-width:2px;
