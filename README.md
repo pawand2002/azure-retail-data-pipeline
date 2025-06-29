@@ -67,6 +67,7 @@ graph TD
     class G component;
     class H storageLayer;
     class I outputLayer;
+```
 ---
 
 ## 🔁 Pipeline Details
