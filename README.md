@@ -132,6 +132,10 @@ graph TD
     class bronze_zone,silver_zone,gold_zone medallionLayer;
     class powerbi_consumer consumerNode;
 ```
+## 🏗 Architecture Diagram
+
+![Architecture](architecture.png)
+
 ```
 ## 📁 Project Structure
 
