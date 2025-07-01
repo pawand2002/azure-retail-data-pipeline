@@ -132,11 +132,6 @@ graph TD
     class bronze_zone,silver_zone,gold_zone medallionLayer;
     class powerbi_consumer consumerNode;
 ```
-## 🏗 Architecture Diagram
-
-![Architecture](Azure_Retail_Sales.png)
-
-```
 ## 🚀 Getting Started
 
 This section will guide you through setting up and running the Azure Retail Sales ETL Pipeline.
@@ -216,7 +211,12 @@ Follow these steps to deploy and run the pipeline in your Azure environment:
     * Navigate to the main orchestration pipeline in the ADF Studio (e.g., the pipeline that sequences the bronze, silver, and gold stages).
     * Click "Add Trigger" -> "Trigger Now" to initiate the end-to-end ETL process.
     * Monitor the pipeline run in the "Monitor" section of ADF Studio to ensure successful completion. Look for green checkmarks indicating success!
+
+## 🏗 Architecture Diagram
+
+![Architecture](Azure_Retail_Sales.png)
 ```
+
 ```
 ## 📁 Project Structure
 
