@@ -132,7 +132,7 @@ graph TD
     class bronze_zone,silver_zone,gold_zone medallionLayer;
     class powerbi_consumer consumerNode;
 ```
-
+```
 ## 📁 Project Structure
 
 ├── adf-pipelines/                # Azure Data Factory pipeline definitions (JSON)
@@ -140,7 +140,7 @@ graph TD
 │   ├── silver_transform.json
 │   └── gold_aggregation.json
 ├── data/                         # Sample or test data (if applicable)
-│   └── sales.csv                 # Raw sales data
+│   └── Superstore.csv                 # Raw sales data
 ├── powerbi-reports/              # Power BI Desktop files (.pbix)
 │   └── retail_sales_dashboard.pb1x
 ├── notebooks/                    # Optional: Jupyter notebooks for data exploration/validation
