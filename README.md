@@ -132,7 +132,7 @@ graph TD
     class bronze_zone,silver_zone,gold_zone medallionLayer;
     class powerbi_consumer consumerNode;
 ```
-
+```
 ## 📁 Project Structure
 
 ├── adf-pipelines/                # Azure Data Factory pipeline definitions (JSON)
