@@ -212,6 +212,30 @@ Follow these steps to deploy and run the pipeline in your Azure environment:
     * Click "Add Trigger" -> "Trigger Now" to initiate the end-to-end ETL process.
     * Monitor the pipeline run in the "Monitor" section of ADF Studio to ensure successful completion. Look for green checkmarks indicating success!
 
+## 📈 Usage
+
+This section will guide you on how to access and utilize the processed data from the Gold layer of your data lake.
+
+### 1. Accessing Processed Data (Gold Layer)
+
+After a successful end-to-end pipeline run, the aggregated and business-ready data will be available in the Gold Zone of your Azure Data Lake Storage Gen2.
+
+* **Path:** You can find the processed Parquet files at a path similar to:
+    `abfss://gold@[Your-Storage-Account-Name].dfs.core.windows.net/sales_summary/`
+    *(Remember to replace `[Your-Storage-Account-Name]` with your actual ADLS Gen2 account name).*
+* This data is optimized for analytical consumption by various tools. You can directly connect tools like Azure Synapse Analytics, Azure Databricks, or other data visualization platforms to this location.
+
+### 2. Power BI Reporting (Planned / Future Enhancement)
+
+While the project structure includes a `powerbi-reports/` folder and Power BI is the intended visualization tool, the complete dashboard development and integration might be an ongoing or future enhancement.
+
+* **Current Status:** The `retail_sales_dashboard.pbix` file in the repository serves as a placeholder or a starting template for your Power BI reports.
+* **Future Steps:** Once the dashboard is developed and ready, you would typically:
+    * Open the `.pbix` file using **Power BI Desktop**.
+    * Configure its data source to correctly point to your Gold layer in ADLS Gen2.
+    * Refresh the data to load the latest aggregated insights from your pipeline.
+    * Explore and interact with the dashboards to gain business insights.
+      
 ## 🏗 Architecture Diagram
 
 ![Architecture](Azure_Retail_Sales.png)
