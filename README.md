@@ -137,6 +137,87 @@ graph TD
 ![Architecture](Azure_Retail_Sales.png)
 
 ```
+## 🚀 Getting Started
+
+This section will guide you through setting up and running the Azure Retail Sales ETL Pipeline.
+
+### Prerequisites
+
+Before you begin, ensure you have the following:
+
+* An **Azure Subscription**
+* **Azure CLI** or **Azure PowerShell** installed (recommended for resource provisioning)
+* Access to the **Azure Portal**
+* **Power BI Desktop** installed (for consuming the final data)
+* **Git** installed on your local machine
+
+### Deployment Steps
+
+Follow these steps to deploy and run the pipeline in your Azure environment:
+
+1.  **Clone the Repository:**
+    Start by cloning this project repository to your local machine:
+    ```bash
+    git clone [https://github.com/pawand2002/azure-retail-data-pipeline.git](https://github.com/pawand2002/azure-retail-data-pipeline.git)
+    cd azure-retail-data-pipeline
+    ```
+
+2.  **Azure Resource Setup:**
+    You'll need to provision the core Azure services. You can do this via the Azure Portal or using Azure CLI/PowerShell for automation.
+
+    * **Resource Group:**
+        Create a new Azure Resource Group to contain all your project resources, or use an existing one.
+        ```bash
+        # Example using Azure CLI
+        az group create --name [Your-Resource-Group-Name] --location [Your-Azure-Region]
+        ```
+        *(Replace `[Your-Resource-Group-Name]` and `[Your-Azure-Region]` with your desired values, e.g., `az group create --name RetailETL-RG --location eastus`)*
+
+    * **Azure Data Lake Storage Gen2 (ADLS Gen2):**
+        Create a new ADLS Gen2 storage account within your resource group. **Ensure "Hierarchical namespace" is enabled** during creation.
+        ```bash
+        # Example using Azure CLI
+        az storage account create \
+          --name [Your-Storage-Account-Name] \
+          --resource-group [Your-Resource-Group-Name] \
+          --location [Your-Azure-Region] \
+          --sku Standard_LRS \
+          --kind StorageV2 \
+          --hns true
+        ```
+        *(Replace placeholders accordingly, e.g., `az storage account create --name retaildatalake --resource-group RetailETL-RG --location eastus --sku Standard_LRS --kind StorageV2 --hns true`)*
+
+    * **Azure Data Factory (ADF):**
+        Create a new Azure Data Factory instance.
+        ```bash
+        # Example using Azure CLI
+        az datafactory create \
+          --name [Your-ADF-Name] \
+          --resource-group [Your-Resource-Group-Name] \
+          --location [Your-Azure-Region]
+        ```
+        *(Replace placeholders, e.g., `az datafactory create --name RetailSalesADF --resource-group RetailETL-RG --location eastus`)*
+
+3.  **Upload Raw Data:**
+    * Locate the sample raw data file, `Superstore.csv`, in the `data/` directory of your cloned repository.
+    * Upload this file to your ADLS Gen2 storage account. You'll need to create a container (e.g., `raw-data`) and a specific folder path within it (e.g., `sales/`) to match the expected input path for the Bronze layer.
+        * **Expected Path Example:** `abfss://raw-data@[Your-Storage-Account-Name].dfs.core.windows.net/sales/Superstore.csv`
+
+4.  **Deploy ADF Pipelines & Configure Linked Services:**
+    * Open your Azure Data Factory Studio (you can find the link in the Azure Portal for your ADF instance).
+    * **Create Linked Service:** Navigate to **Manage** -> **Linked services**. Create a new Linked Service for your ADLS Gen2, pointing it to your newly created storage account. Ensure the ADF Managed Identity has the necessary permissions (e.g., "Storage Blob Data Contributor" role on your ADLS Gen2 account).
+    * **Import Pipelines:** Go to the **Author** section. You will need to import the pipeline definitions from the `adf-pipelines/` directory of this repository (e.g., `bronze_ingestion.json`, `silver_transform.json`, `gold_aggregation.json`). You can either:
+        * Manually create new pipelines and copy-paste the JSON code into them.
+        * Use more advanced ADF deployment methods (like ARM templates) if you prefer automation, though manual import is quicker for initial setup.
+    * **Update Datasets/Activities:** Review and update any datasets or activities within the imported pipelines to ensure they correctly reference your newly created Linked Services and the precise paths within ADLS Gen2 (e.g., `raw-data/sales/` for input, `silver/sales_cleaned/` for silver output, `gold/sales_summary/` for gold output).
+    * **Publish All:** After making changes, click the "Publish All" button in ADF Studio.
+
+5.  **Trigger the Pipeline:**
+    * Navigate to the main orchestration pipeline in the ADF Studio (e.g., the pipeline that sequences the bronze, silver, and gold stages).
+    * Click "Add Trigger" -> "Trigger Now" to initiate the end-to-end ETL process.
+    * Monitor the pipeline run in the "Monitor" section of ADF Studio to ensure successful completion. Look for green checkmarks indicating success!
+```
+```
 ## 📁 Project Structure
 
 ├── adf-pipelines/                # Azure Data Factory pipeline definitions (JSON)
