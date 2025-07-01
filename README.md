@@ -216,8 +216,6 @@ Follow these steps to deploy and run the pipeline in your Azure environment:
 
 ![Architecture](Azure_Retail_Sales.png)
 ```
-
-```
 ## 📁 Project Structure
 
 ├── adf-pipelines/                # Azure Data Factory pipeline definitions (JSON)
