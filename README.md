@@ -134,7 +134,7 @@ graph TD
 ```
 ## 🏗 Architecture Diagram
 
-![Architecture](architecture.png)
+![Architecture](Azure Retail Sales.png)
 
 ```
 ## 📁 Project Structure
